@@ -1,0 +1,25 @@
+package com.tendcloud.adt.testcases.keywords.smoke.spread.management;
+
+import org.testng.annotations.Test;
+
+import com.tendcloud.adt.framework.base.AdtTestBase;
+import com.tendcloud.adt.framework.keywords.AdtKeywords;
+
+import framework.base.anotation.TestDoc;
+import framework.keyworddriven.executionengine.ExecutionEngine;
+import test.base.TestGroups;
+
+public class TestEditSpread {
+
+	//@Listeners({ TestNGListener.class })
+	public class TestCreateSpread extends AdtTestBase {
+
+		@Test(groups = TestGroups.SMOKE)
+		@TestDoc(testCaseID = "", testObjective = "修改不同类型应用的推广活动的基本功能测试")
+		public void testEditSpread() {
+
+			String file = "推广活动管理/testEditSpreads.xlsx";
+			new ExecutionEngine(file, AdtKeywords.class);
+		}
+	}
+}

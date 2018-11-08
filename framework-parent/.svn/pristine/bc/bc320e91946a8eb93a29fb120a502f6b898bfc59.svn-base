@@ -1,0 +1,21 @@
+package com.tendcloud.adt.testcases.keywords.smoke.product.management;
+
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+import com.tendcloud.adt.framework.base.AdtTestBase;
+import com.tendcloud.adt.framework.keywords.AdtKeywords;
+import framework.base.anotation.TestDoc;
+import framework.keyworddriven.executionengine.ExecutionEngine;
+import framework.webdriver.TestNGListener;
+import test.base.TestGroups;
+
+//@Listeners({TestNGListener.class})
+public class TestEditApp extends AdtTestBase{
+
+	@Test(groups=TestGroups.SMOKE)
+	@TestDoc(testCaseID="T497082,T497083", testObjective="测试修改应用的基本功能")
+	public void testEditApp() throws Exception{
+		String file = "应用管理/TestEditApp.xlsx";
+		new ExecutionEngine(file, AdtKeywords.class);
+	}
+}

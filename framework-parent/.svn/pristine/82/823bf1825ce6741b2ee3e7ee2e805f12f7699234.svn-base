@@ -1,0 +1,193 @@
+package com.tendcloud.adt.testcases.keywords.regression;
+
+import java.lang.reflect.Method;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.MissingFormatArgumentException;
+
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+
+import com.tendcloud.adt.framework.keywords.AdtKeywords;
+
+import framework.base.Verify;
+import framework.base.exception.StopRunningException;
+import framework.base.utils.ReportUtils;
+import framework.keyworddriven.BaseKeywords;
+import framework.keyworddriven.executionengine.ExecutionEngine;
+import framework.keyworddriven.util.ExcelConstants;
+import framework.keyworddriven.util.ExcelUtils;
+import framework.webdriver.TestNGListener;
+
+//@Listeners(TestNGListener.class)
+public class TestException {
+	TestException te = null;
+	@BeforeTest
+	public void init(){
+		te = new TestException();
+	}
+	@Test
+	@SuppressWarnings("all")
+	public void testE() {
+		try {
+			tt();
+		} catch (Throwable t) {
+			if (t instanceof StopRunningException) {
+				System.out.println("hehelelelle");
+			}
+			String s = t.getMessage();
+			System.out.println(s);
+			;
+			System.out.println(t.getCause());
+		}
+	}
+
+	public void tt() throws StopRunningException {
+		try {
+			Verify.verifyContains("acb", "ddd", "dfdfdf");
+		} catch (Throwable e) {
+			throw new StopRunningException("这里有异常...");
+		}
+	}
+
+	@Test
+	public void teset() throws Exception {
+		String file = "C:/testcases/应用管理/testCreateApps.xlsx";
+		new ExecutionEngine(file, AdtKeywords.class);
+	}
+
+	@Test
+	public void tet() throws Exception {
+		String file = "C:/testcases/应用管理/testCreateApps.xlsx";
+		startTesting(file);
+	}
+
+	private void startTesting(String excelFilePath) throws Exception {
+
+		// excelFile = excelFilePath;
+
+		ExcelUtils.setExcelFile(excelFilePath);
+
+		try {
+			executeTestCase();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+	}
+
+	//JavaStringCompiler compiler = new JavaStringCompiler();
+	String className = this.getClass().getSimpleName() + "_Sub";
+	
+	StringBuffer sb = new StringBuffer(
+			/*
+			 * "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+			 * "<!DOCTYPE suite SYSTEM \"http://testng.org/testng-1.0.dtd\">" +
+			 * "<suite name=\"Suite\">" + "<listeners>" +
+			 * "<listener class-name=\"webdriver.TestNGListener\"></listener>" +
+			 * "</listeners>" + "<test name=\"Test\">" + "<classes>"
+			 */
+			"import org.testng.annotations.Test; \n" + 
+			"class " + className + " extends adtracking.base.keywordriven.test.TestException { \n");
+
+	// 执行指定的Sheet
+	private void executeTestCase() throws Exception {
+		List<String> list = new LinkedList<>();
+		// 在TestCases的Sheet中, 得到共有多少条Case，；
+		int testCaseListInTestCasesSheet = ExcelUtils.getRowCount(ExcelConstants.TestCasesList_Sheet);
+		// 遍历Case列表：首行（第0行）是标题行，不计入；
+		for (int testcase = 1; testcase < testCaseListInTestCasesSheet; testcase++) {
+			// TestCases中的test_case_id 列；
+			String testCaseID = ExcelUtils.getCellData(testcase, ExcelConstants.Col_TestCaseID,
+					ExcelConstants.TestCasesList_Sheet);
+			// TestCases中的runmode 列；
+			String runMode = ExcelUtils.getCellData(testcase, ExcelConstants.Col_RunMode,
+					ExcelConstants.TestCasesList_Sheet);
+			// yes代表当前有效的case, 如果设置为yes, 则去TestSteps中找相同TestCaseId的TestSteps：
+			if (runMode.trim().equalsIgnoreCase("yes")) {
+				list.add(testCaseID);
+				// System.out.println(list);
+			}
+		}
+		te = new TestException();
+		
+		for (String s : list) {
+			sb.append("@Test").append("\n");
+			sb.append("public void " + s + "()  throws Throwable { \n");
+			sb.append("begin(" + "\"" + s + "\"" + "); \n");
+			sb.append("}\n");
+		}
+		sb.append("}");
+		System.out.println(sb.toString());
+		/*
+		Map<String, byte[]> source = compiler.compile(className, sb.toString());
+		Class<?> clazz = compiler.loadClass(className, source);
+		
+		Method[] m = clazz.getDeclaredMethods();
+		for(Method method : m){
+			try {
+				method.invoke(clazz.newInstance());
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+		}*/
+	}
+
+	/*
+	 * private String generateTestCase(String s) {
+	 * sb.append("@Test").append("\n"); sb.append("public void " + s + "(){ \n"
+	 * ); sb.append("begin(" + s + "); \n"); sb.append("}\n"); return
+	 * sb.toString(); }
+	 */
+	public void begin(String testCaseID) throws Throwable {
+		// 报告中用来分隔各条TestCase名字：
+		// log.info("<font color='#76E11F'><h3> &nbsp;&nbsp; >>>开始执行测试用例: [ " +
+		// testCaseID + " ]<<< </h3></font> </br>");
+
+		int testCaseSheetRows = ExcelUtils.getRowCount(testCaseID);// 这里要求TestCase的名字与TestCasesList中对应的Case的名字一致；
+		int testStep = 1;// 测试步骤，第一行为标题，第二行才是真正的测试步骤；
+
+		// result = true;
+
+		for (; testStep < testCaseSheetRows; testStep++) {
+			String keywords = ExcelUtils.getCellData(testStep, ExcelConstants.Col_Keywords, testCaseID);
+			// 定义定位信息，不设置 locator 返回 Null
+			String locator = ExcelUtils.getCellData(testStep, ExcelConstants.Col_Locator, testCaseID);
+			// 测试所需的值，如Input、waitFor、verify等所需要的值
+			String testData = ExcelUtils.getCellData(testStep, ExcelConstants.Col_InputData, testCaseID);
+
+			// 开始执行关键字：
+			executeActions(keywords, testStep, locator, testData);
+		}
+	}
+
+	private void executeActions(String keywords, int testStep, String locator, String testData) throws Throwable {
+		Method[] methods = BaseKeywords.class.getMethods();
+		BaseKeywords actionKeywords = new BaseKeywords();
+		for (int i = 0; i < methods.length; i++) {
+			// 判断当前遍历的ActionKeywrods类中的方法是否与读取的Excel中的方法相同；
+			if (methods[i].getName().equals(keywords)) {
+				try {
+					// 调用时需要传入locator, testData
+					methods[i].invoke(actionKeywords, locator, testData);
+
+				} catch (Throwable t) {
+					t.printStackTrace();
+
+					if (t instanceof StopRunningException) {
+						Class<?> c = t.getClass();
+						break;
+					}
+					// log.info(ReportUtils.formatError("<pre>" +
+					// TestUtils.getFailureMessage(testResult.getThrowable())).replaceAll("\n",
+					// "<br/>") + "</pre>");
+				}
+			}
+		}
+	}
+
+}

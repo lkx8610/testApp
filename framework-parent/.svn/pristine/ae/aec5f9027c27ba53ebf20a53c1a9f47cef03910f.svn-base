@@ -1,0 +1,24 @@
+package com.tendcloud.adt.testcases.keywords.smoke.product.management;
+
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+
+import com.tendcloud.adt.framework.base.AdtTestBase;
+import com.tendcloud.adt.framework.keywords.AdtKeywords;
+
+import framework.base.anotation.TestDoc;
+import framework.keyworddriven.executionengine.ExecutionEngine;
+import framework.webdriver.TestNGListener;
+import test.base.TestGroups;
+
+@Listeners(TestNGListener.class)
+public class TestCheckAppStatus extends AdtTestBase{
+
+	@Test(groups=TestGroups.SMOKE)
+	@TestDoc(testCaseID="T497084,T497085,T497086,T497087", testObjective="检查IOS应用下的各个Tab能否正常使用")
+	public void testCheckAppStatus() throws Exception{
+		String file = "应用管理/testCheckAppStatus.xlsx";
+		
+		new ExecutionEngine(file, AdtKeywords.class);
+	}
+}

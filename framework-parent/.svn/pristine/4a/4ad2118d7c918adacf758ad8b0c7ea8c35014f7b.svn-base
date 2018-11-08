@@ -1,0 +1,21 @@
+package com.tendcloud.adt.testcases.keywords.smoke.product.management;
+
+import org.testng.annotations.Test;
+
+import com.tendcloud.adt.framework.base.AdtTestBase;
+import com.tendcloud.adt.framework.keywords.AdtKeywords;
+
+import framework.base.anotation.TestDoc;
+import framework.keyworddriven.executionengine.ExecutionEngine;
+import test.base.TestGroups;
+
+//@Listeners(TestNGListener.class)
+public class TestDeleteApp extends AdtTestBase{
+
+	@Test(groups=TestGroups.UNIT)
+	@TestDoc(dateDocumented="", testObjective="测试删除单个应用及批量删除应用。")
+	public void testDelApp() throws Exception{
+		String file = "应用管理/testDelApp.xlsx";
+		new ExecutionEngine(file, AdtKeywords.class);
+	}
+}

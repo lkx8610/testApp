@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+  <listeners>
+  	<listener class-name="framework.webdriver.TestNGListener"></listener>
+  </listeners>
+  <test name="Test">
+  	<groups>
+  		<run>
+  			<include name="smoke"></include>
+  		</run>
+  	</groups>
+  	<packages>
+  		<package name="com.tendcloud.adt.testcases.keywords.smoke"></package>
+  	</packages>
+    <classes>
+    	<class name="com.tendcloud.adt.testcases.keywords.smoke.product.management.TestCreateSmallApp"></class>
+    </classes>
+    
+  </test> <!-- Test -->
+</suite> <!-- Suite -->

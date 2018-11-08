@@ -1,0 +1,23 @@
+package com.tendcloud.adt.testcases.keywords.smoke.spread.management;
+
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+
+import com.tendcloud.adt.framework.base.AdtTestBase;
+import com.tendcloud.adt.framework.keywords.AdtKeywords;
+
+import framework.base.anotation.TestDoc;
+import framework.keyworddriven.executionengine.ExecutionEngine;
+import framework.webdriver.TestNGListener;
+import test.base.TestGroups;
+
+@Listeners(TestNGListener.class)
+public class TestSearchSpreads extends AdtTestBase{
+
+	@Test(groups=TestGroups.SMOKE)
+	@TestDoc(testCaseID="", testObjective="用于对创建的活动进行精确与模糊查询")
+	public void testSearchSpreads(){
+		String file = "推广活动管理/testSearchSpreads.xlsx";
+		new ExecutionEngine(file, AdtKeywords.class);
+	}
+}

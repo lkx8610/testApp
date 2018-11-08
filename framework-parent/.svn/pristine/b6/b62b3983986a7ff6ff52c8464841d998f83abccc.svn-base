@@ -1,0 +1,20 @@
+package com.tendcloud.adt.testcases.keywords.common;
+
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+
+import com.tendcloud.adt.framework.base.AdtTestBase;
+import com.tendcloud.adt.framework.keywords.AdtKeywords;
+
+import framework.keyworddriven.executionengine.ExecutionEngine;
+import framework.webdriver.TestNGListener;
+
+@Listeners(TestNGListener.class)
+public class Test1 extends AdtTestBase{
+	@Test
+	public void test(){
+		String file = "C:\\testcases\\示例/test.xlsx";
+		new ExecutionEngine(file, AdtKeywords.class);
+	}
+	
+}

@@ -1,0 +1,9 @@
+package com.tendcloud.adt.api.product;
+
+/**
+ * 通过直接调用接口，来实现应用的CRUD
+ * @author James
+ */
+public class ProductsCRUD {
+
+}

@@ -1,0 +1,30 @@
+package com.tendcloud.adt.testcases.keywords.unit;
+
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+
+import com.tendcloud.adt.framework.base.AdtTestBase;
+import com.tendcloud.adt.framework.keywords.AdtKeywords;
+
+import framework.keyworddriven.BaseKeywords;
+import framework.keyworddriven.executionengine.ExecutionEngine;
+import framework.webdriver.TestNGListener;
+
+@Listeners(TestNGListener.class)
+public class TestSwitchWindowAndFrameUpdate extends AdtTestBase{
+
+	@Test
+	public void testSwitchWindows() throws Exception{
+		
+		BaseKeywords bk = new BaseKeywords();
+		bk.getWindowHandleMap().put("aaa", "hello_page");
+		
+		String file = "C:/testcases/otherTest/testWindow.xlsx";
+		new ExecutionEngine(file, AdtKeywords.class);
+	}
+}
+
+
+
+
+

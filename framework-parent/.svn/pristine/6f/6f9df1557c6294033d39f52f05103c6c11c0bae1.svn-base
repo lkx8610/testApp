@@ -1,0 +1,69 @@
+package com.tendcloud.adt.testcases.keywords.unit;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+
+import com.tendcloud.adt.framework.base.AdtTestBase;
+import com.tendcloud.adt.framework.keywords.AdtKeywords;
+
+import framework.keyworddriven.executionengine.ExecutionEngine;
+import framework.webdriver.TestNGListener;
+
+@Listeners(TestNGListener.class)
+public class TestScrollInToView extends AdtTestBase{
+
+	@Test
+	public void testScrollInToView(){
+		String file = "C:\\testcases\\TestScrollIntoView_Mail.163.xlsx";
+		new ExecutionEngine(file, AdtKeywords.class);
+	}
+	
+	@Test
+	public void testScroll() throws Exception{
+		
+		getWebDriver().get("http://172.20.7.2:10005/webapp/index/login.html");
+		waitFor(600);
+		
+		WebElement ee = getWebDriver().findElement(By.xpath("//input[@name='user']"));//getElement("xpath=//input[@name='user']");
+		ee.sendKeys("zhenhai.guo@tendcloud.com");
+		waitFor(2000);
+		
+		//int i = list.size();
+		getElement("xpath=//input[@name='password']").sendKeys("112");
+		
+		waitFor(600);
+		getElement("xpath=//div[@class='button_login']/a").click();
+		waitFor(600);
+		waitForPageLoad();
+		
+		//管理中心：
+		getElement("xpath=//a[contains(text(),'管理中心')]").click();
+		waitFor(800);
+		
+		getElement("xpath=//span/i[@class='channel']").click();
+		waitFor(600);
+		
+		getElement("xpath=//a[contains(text(),'添加自定义渠道')]");
+		waitFor(600);
+		
+		Actions action = (Actions)getWebDriver();
+		action.moveToElement(getElement("xpath=//a[contains(text(),'保存')]")).click().build().perform();
+		
+		/*JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("arguments[0].scrollIntoView(false);");
+		waitFor(600);
+		WebElement save = driver.findElement(By.xpath("//a[contains(text(),'保存')]"));
+		waitFor(600);
+		save.click();*/
+		waitFor(50000);
+		
+	}
+}

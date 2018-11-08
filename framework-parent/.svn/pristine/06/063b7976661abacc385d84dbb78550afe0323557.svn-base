@@ -1,0 +1,26 @@
+package com.tendcloud.adt.testcases.keywords.unit;
+
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+
+import com.tendcloud.adt.framework.base.AdtTestBase;
+import com.tendcloud.adt.framework.keywords.AdtKeywords;
+
+import framework.keyworddriven.executionengine.ExecutionEngine;
+import framework.webdriver.TestNGListener;
+
+@Listeners(TestNGListener.class)
+public class TestApiFramework extends AdtTestBase{
+
+	@Test
+	public void testApiFramework(){
+		String file = "testDelApp.xlsx";
+		new ExecutionEngine(file, AdtKeywords.class);
+	}
+	
+	@Test
+	public void testApiDelTestData(){
+		String file = "testDelApp.xlsx";
+		new ExecutionEngine(file, AdtKeywords.class);
+	}
+}

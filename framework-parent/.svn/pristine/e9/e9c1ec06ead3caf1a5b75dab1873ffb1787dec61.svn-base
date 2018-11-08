@@ -1,0 +1,23 @@
+package com.tendcloud.adt.testcases.keywords.smoke.product.management;
+
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+
+import com.tendcloud.adt.framework.base.AdtTestBase;
+import com.tendcloud.adt.framework.keywords.AdtKeywords;
+
+import framework.base.anotation.TestDoc;
+import framework.keyworddriven.executionengine.ExecutionEngine;
+import framework.webdriver.TestNGListener;
+import test.base.TestGroups;
+
+//@Listeners(TestNGListener.class)
+public class TestDeleteApp extends AdtTestBase{
+
+	@Test(groups=TestGroups.UNIT)
+	@TestDoc(dateDocumented="", testObjective="通过删除不同的应用以验证删除应用功能正确。")
+	public void testDelApp() throws Exception{
+		String file = "应用管理/testDelApp.xlsx";
+		new ExecutionEngine(file, AdtKeywords.class);
+	}
+}

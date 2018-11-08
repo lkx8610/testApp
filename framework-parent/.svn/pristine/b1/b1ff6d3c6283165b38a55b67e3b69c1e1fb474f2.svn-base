@@ -1,0 +1,29 @@
+package com.tendcloud.adt.testcases.keywords.smoke.product.management;
+
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+
+import com.tendcloud.adt.framework.base.AdtTestBase;
+import com.tendcloud.adt.framework.keywords.AdtKeywords;
+
+import framework.base.anotation.TestDoc;
+import framework.keyworddriven.executionengine.ExecutionEngine;
+import framework.webdriver.TestNGListener;
+import test.base.TestGroups;
+
+@Listeners(TestNGListener.class)
+public class TestCreateSmallApp extends AdtTestBase{
+	@Test(groups=TestGroups.SMOKE)
+	@TestDoc(testCaseID="T497083", testObjective="测试小程序的创建功能是否正常")
+	public void testCreateSmallAppNormalTest() throws Exception{
+		String file = "应用管理/createSmallApp.xlsx";
+		new ExecutionEngine(file, AdtKeywords.class);
+	}
+	
+	@Test(groups=TestGroups.SMOKE)
+	@TestDoc(testCaseID="T497083", testObjective="测试小程序的创建功能是否正常")
+	public void testCreateNormalTest() throws Exception{
+		String file = "应用管理/testAppSearch.xlsx";
+		new ExecutionEngine(file, AdtKeywords.class);
+	}
+}

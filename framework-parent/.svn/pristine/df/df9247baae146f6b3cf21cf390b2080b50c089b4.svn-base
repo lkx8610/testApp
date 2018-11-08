@@ -1,0 +1,33 @@
+package com.tendcloud.adt.testcases.keywords.smoke.spread.management;
+
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+
+import com.tendcloud.adt.framework.base.AdtTestBase;
+import com.tendcloud.adt.framework.keywords.AdtKeywords;
+
+import framework.base.anotation.TestDoc;
+import framework.keyworddriven.executionengine.ExecutionEngine;
+import framework.webdriver.TestNGListener;
+import test.base.TestGroups;
+
+/**
+ * 为不同的类型的应用创建“线下”推广活动的功能测试；
+ * @author James Guo
+ *
+ */
+@Listeners({TestNGListener.class})
+public class TestCreateOfflineSpreads extends AdtTestBase{
+
+	@Test(groups=TestGroups.SMOKE)
+	@TestDoc(testCaseID="", testObjective="为不同类型的应用创建 '线下' 推广活动的基本功能测试")
+	public void testCreateOfflineSpread(){
+		
+		String file = "推广活动管理/testCreateOfflineSpreads.xlsx";
+		new ExecutionEngine(file, AdtKeywords.class);
+	}
+}
+
+
+
+
